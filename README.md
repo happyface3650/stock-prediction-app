@@ -1,1 +1,1 @@
-# stock-prediction-app
+# Stock Prediciton App by Sophie
