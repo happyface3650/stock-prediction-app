@@ -4,6 +4,10 @@ import yfinance as yf
 from prophet import Prophet
 from prophet.plot import plot_plotly
 from plotly import graph_objs as go
+import numpy as np
+from prophet.forecaster import Prophet
+
+Prophet._float_type = np.float64
 
 #sets start and end time of the data fetched and graphs drawn
 START = "2015-01-01"
@@ -18,7 +22,6 @@ n_days = st.slider("Days predicted:", 1, 1000)
 period = n_days
 
 #loads data from yfinance for the selected stock
-@st.cache
 def load_data(ticker):
     data = yf.download(ticker, START, TODAY)
     data.reset_index(inplace=True)
