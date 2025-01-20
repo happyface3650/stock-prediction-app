@@ -69,7 +69,11 @@ if len(selected_stock) != 0: #checks if characters are entered
         forecast_copy = forecast_copy.drop(columns=['trend_upper', 'trend_lower', 'additive_terms', 'additive_terms_lower', 'additive_terms_upper', 'weekly', 'weekly_lower', 'weekly_upper', 'yearly', 'yearly_lower', 'yearly_upper', 'multiplicative_terms', 'multiplicative_terms_lower', 'multiplicative_terms_upper'])
         #rename columns 
         forecast_copy = forecast_copy.rename(columns={'ds': 'Date', 'yhat': 'Forecasted Prices', 'yhat_lower': 'Lower Bound', 'yhat_upper': 'Upper Bound'})
+        predicted_close = data.iloc[-1]['yhat']
+        st.subheader(f"Price after {n_days}: predicted_close")
         st.write(forecast_copy.tail()) #display data
+       
+       
         st.subheader('Prediction')
         fig1 = plot_plotly(m, forecast) #combine predicted and actual prices
         st.plotly_chart(fig1) #plot the graph
