@@ -76,7 +76,9 @@ if len(selected_stock) != 0: #checks if characters are entered
         st.subheader('Forecast components')
         fig2 = m.plot_components(forecast) #shows trend lines for different time of the day, week and year
         st.write(fig2)
-        st.write(forecast_copy.tail()) #display data
+        fc = pd.DataFrame(forecast_copy.tail())
+        fc_reset = fc.reset_index(drop=True)#display data
+        st.dataframe(fc_reset)
     else: #error message if the stock ticker is wrong 
         st.error("Invalid Stock Ticker/Not enough data to make a forecast. Please try again.") 
         
