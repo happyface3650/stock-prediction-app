@@ -13,7 +13,7 @@ Prophet._float_type = np.float64
 START = "2015-01-01"
 TODAY = date.today().strftime("%Y-%m-%d")
 
-st.title("Stock Prediction App")
+st.title("Stock Prediction")
 #search stocks by their tickers
 selected_stock = st.text_input("Enter Stock ticker")
 
