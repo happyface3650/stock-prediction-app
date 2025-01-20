@@ -66,7 +66,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         forecast_copy = forecast_copy.rename(columns={'ds': 'Date', 'yhat': 'Forecasted Prices', 'yhat_lower': 'Lower Bound', 'yhat_upper': 'Upper Bound'})
         predicted_close = round(forecast_copy.iloc[-1]['Forecasted Prices'], 2)
         st.subheader(f"Price after {n_days} days: {predicted_close}")
-        st.write(forecast_copy.tail()) #display data
+        
            
            
         st.subheader('Prediction')
@@ -75,6 +75,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         st.subheader('Forecast components')
         fig2 = m.plot_components(forecast) #shows trend lines for different time of the day, week and year
         st.write(fig2)
+        st.write(forecast_copy.tail()) #display data
     else: #error message if the stock ticker is wrong 
         st.error("Invalid Stock Ticker/Not enough data to make a forecast. Please try again.") 
         
