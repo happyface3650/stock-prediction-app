@@ -49,7 +49,10 @@ if len(selected_stock) != 0: #checks if characters are entered
     
     plot_raw_data(data)
     st.subheader('Raw data')
-    st.write(data.tail()) #table of highs, lows, opening and closing prices from the past few days
+    table = data.tail() #table of highs, lows, opening and closing prices from the past few days
+    tb = pd.DataFrame(table)
+    tb_reset = tb.reset_index(drop=True)
+    st.dataframe(tb_reset)
     # Forecasting
     df_train = data[['Date', 'Close']]
     df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
