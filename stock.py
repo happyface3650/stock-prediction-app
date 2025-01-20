@@ -50,16 +50,6 @@ def plot_raw_data(data): #plots the data
 st.subheader('Raw data')
 plot_raw_data(data)
 st.write(data.tail()) #table of highs, lows, opening and closing prices from the past few days
-
-    def plot_raw_data(data): #plots the data 
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='Opening Prices'))
-        fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='Closing Prices'))
-        fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True) #slider to adjust the range of x axis
-        st.plotly_chart(fig)
-
-   
-
     # Forecasting
     df_train = data[['Date', 'Close']]
     df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
