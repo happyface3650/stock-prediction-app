@@ -55,7 +55,7 @@ if len(selected_stock) != 0: #checks if characters are entered
 
     # Forecasting
     df_train = data[['Date', 'Close']]
-    df_train = df_train.rename(columns={"Date": "date", "Close": "price"})
+    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 
     
     if df_train.dropna().shape[0] >= 2: # checks if data is sufficient
