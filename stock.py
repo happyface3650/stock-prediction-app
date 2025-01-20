@@ -46,8 +46,8 @@ if len(selected_stock) != 0: #checks if characters are entered
 
     def plot_raw_data(data): #plots the data 
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='stock_open'))
-        fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='stock_close'))
+        fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='Opening Prices'))
+        fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='Closing Prices'))
         fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True) #slider to adjust the range of x axis
         st.plotly_chart(fig)
 
@@ -69,7 +69,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         forecast_copy = forecast_copy.drop(columns=['trend_upper', 'trend_lower', 'additive_terms', 'additive_terms_lower', 'additive_terms_upper', 'weekly', 'weekly_lower', 'weekly_upper', 'yearly', 'yearly_lower', 'yearly_upper', 'multiplicative_terms', 'multiplicative_terms_lower', 'multiplicative_terms_upper'])
         #rename columns 
         forecast_copy = forecast_copy.rename(columns={'ds': 'Date', 'yhat': 'Forecasted Prices', 'yhat_lower': 'Lower Bound', 'yhat_upper': 'Upper Bound'})
-        predicted_close = forecast_copy.iloc[-1]['yhat']
+        predicted_close = forecast_copy.iloc[-1]['Forecasted Prices']
         st.subheader(f"Price after {n_days}: predicted_close")
         st.write(forecast_copy.tail()) #display data
        
