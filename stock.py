@@ -26,6 +26,12 @@ def load_data(ticker):
     data = yf.download(ticker, START, TODAY)
     data.reset_index(inplace=True)
     return data
+def plot_raw_data(data): #plots the data 
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='Opening Prices'))
+        fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='Closing Prices'))
+        fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True) #slider to adjust the range of x axis
+        st.plotly_chart(fig)
 if len(selected_stock) != 0: #checks if characters are entered
     current_price_container = st.container()
     data_load_state = st.text("Load data...")
@@ -40,42 +46,35 @@ if len(selected_stock) != 0: #checks if characters are entered
         value = data.iloc[-1]['Close']
         rounded_value = round(value, 2)
         st.subheader(f"Current price:{rounded_value}")
-def plot_raw_data(data): #plots the data 
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='Opening Prices'))
-        fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='Closing Prices'))
-        fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True) #slider to adjust the range of x axis
-        st.plotly_chart(fig)
-     
-st.subheader('Raw data')
-plot_raw_data(data)
-st.write(data.tail()) #table of highs, lows, opening and closing prices from the past few days
+    st.subheader('Raw data')
+    plot_raw_data(data)
+    st.write(data.tail()) #table of highs, lows, opening and closing prices from the past few days
     # Forecasting
-df_train = data[['Date', 'Close']]
-df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+    df_train = data[['Date', 'Close']]
+    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 
-if df_train.dropna().shape[0] >= 2: # checks if data is sufficient
-    m = Prophet()
-    m.fit(df_train)
-    future = m.make_future_dataframe(periods=period)
-    forecast = m.predict(future) #predict future prices
-    st.subheader('Forecast data')
-    forecast_copy = forecast.copy() #create a copy of forecast data
-    #select relevant coumns for display
-    forecast_copy = forecast_copy.drop(columns=['trend_upper', 'trend_lower', 'additive_terms', 'additive_terms_lower', 'additive_terms_upper', 'weekly', 'weekly_lower', 'weekly_upper', 'yearly', 'yearly_lower', 'yearly_upper', 'multiplicative_terms', 'multiplicative_terms_lower', 'multiplicative_terms_upper'])
-    #rename columns 
-    forecast_copy = forecast_copy.rename(columns={'ds': 'Date', 'yhat': 'Forecasted Prices', 'yhat_lower': 'Lower Bound', 'yhat_upper': 'Upper Bound'})
-    predicted_close = round(forecast_copy.iloc[-1]['Forecasted Prices'], 2)
-    st.subheader(f"Price after {n_days} days: {predicted_close}")
-    st.write(forecast_copy.tail()) #display data
-       
-       
-    st.subheader('Prediction')
-    fig1 = plot_plotly(m, forecast) #combine predicted and actual prices
-    st.plotly_chart(fig1) #plot the graph
-    st.subheader('Forecast components')
-    fig2 = m.plot_components(forecast) #shows trend lines for different time of the day, week and year
-    st.write(fig2)
-else: #error message if the stock ticker is wrong 
-    st.error("Invalid Stock Ticker/Not enough data to make a forecast. Please try again.") 
-    
+    if df_train.dropna().shape[0] >= 2: # checks if data is sufficient
+        m = Prophet()
+        m.fit(df_train)
+        future = m.make_future_dataframe(periods=period)
+        forecast = m.predict(future) #predict future prices
+        st.subheader('Forecast data')
+        forecast_copy = forecast.copy() #create a copy of forecast data
+        #select relevant coumns for display
+        forecast_copy = forecast_copy.drop(columns=['trend_upper', 'trend_lower', 'additive_terms', 'additive_terms_lower', 'additive_terms_upper', 'weekly', 'weekly_lower', 'weekly_upper', 'yearly', 'yearly_lower', 'yearly_upper', 'multiplicative_terms', 'multiplicative_terms_lower', 'multiplicative_terms_upper'])
+        #rename columns 
+        forecast_copy = forecast_copy.rename(columns={'ds': 'Date', 'yhat': 'Forecasted Prices', 'yhat_lower': 'Lower Bound', 'yhat_upper': 'Upper Bound'})
+        predicted_close = round(forecast_copy.iloc[-1]['Forecasted Prices'], 2)
+        st.subheader(f"Price after {n_days} days: {predicted_close}")
+        st.write(forecast_copy.tail()) #display data
+           
+           
+        st.subheader('Prediction')
+        fig1 = plot_plotly(m, forecast) #combine predicted and actual prices
+        st.plotly_chart(fig1) #plot the graph
+        st.subheader('Forecast components')
+        fig2 = m.plot_components(forecast) #shows trend lines for different time of the day, week and year
+        st.write(fig2)
+    else: #error message if the stock ticker is wrong 
+        st.error("Invalid Stock Ticker/Not enough data to make a forecast. Please try again.") 
+        
