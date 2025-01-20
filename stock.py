@@ -40,7 +40,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         value = data.iloc[-1]['Close']
         rounded_value = round(value, 2)
         st.subheader(f"Current price:{rounded_value}")
- def plot_raw_data(data): #plots the data 
+def plot_raw_data(data): #plots the data 
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='Opening Prices'))
         fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='Closing Prices'))
