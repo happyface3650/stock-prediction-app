@@ -46,8 +46,9 @@ if len(selected_stock) != 0: #checks if characters are entered
         value = data.iloc[-1]['Close']
         rounded_value = round(value, 2)
         st.write(f"Last closing price: ${rounded_value}")
-    st.subheader('Raw data')
+    
     plot_raw_data(data)
+    st.subheader('Raw data')
     st.write(data.tail()) #table of highs, lows, opening and closing prices from the past few days
     # Forecasting
     df_train = data[['Date', 'Close']]
