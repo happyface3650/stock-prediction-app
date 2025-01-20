@@ -41,7 +41,7 @@ if len(selected_stock) != 0: #checks if characters are entered
     ticker_info = ticker.info
     current_price = ticker_info['currentPrice']
     if current_price is not None: #checks if the market is open
-        st.subheader(f"Current price:{current_price}")
+        st.subheader(f"Last Closing price: ${current_price}")
     else: # if the market is closed
         value = data.iloc[-1]['Close']
         rounded_value = round(value, 2)
