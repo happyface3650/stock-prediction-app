@@ -41,8 +41,9 @@ if len(selected_stock) != 0: #checks if characters are entered
         rounded_value = round(value, 2)
         st.subheader(f"Current price:{rounded_value}")
 
-    st.subheader('Raw data') #table of highs, lows, opening and closing prices from the past few days
-    st.write(data.tail())
+    st.subheader('Raw data')
+    plot_raw_data(data)
+    st.write(data.tail()) #table of highs, lows, opening and closing prices from the past few days
 
     def plot_raw_data(data): #plots the data 
         fig = go.Figure()
@@ -51,7 +52,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True) #slider to adjust the range of x axis
         st.plotly_chart(fig)
 
-    plot_raw_data(data)
+   
 
     # Forecasting
     df_train = data[['Date', 'Close']]
