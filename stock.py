@@ -70,7 +70,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         #rename columns 
         forecast_copy = forecast_copy.rename(columns={'ds': 'Date', 'yhat': 'Forecasted Prices', 'yhat_lower': 'Lower Bound', 'yhat_upper': 'Upper Bound'})
         predicted_close = forecast_copy.iloc[-1]['Forecasted Prices']
-        st.subheader(f"Price after {n_days}: predicted_close")
+        st.subheader(f"Price after {n_days} days: {predicted_close}")
         st.write(forecast_copy.tail()) #display data
        
        
