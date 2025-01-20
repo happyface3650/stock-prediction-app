@@ -45,7 +45,7 @@ if len(selected_stock) != 0: #checks if characters are entered
     else: # if the market is closed
         value = data.iloc[-1]['Close']
         rounded_value = round(value, 2)
-        st.subheader(f"Current price:{rounded_value}")
+        st.write(f"Last closing price: ${rounded_value}")
     st.subheader('Raw data')
     plot_raw_data(data)
     st.write(data.tail()) #table of highs, lows, opening and closing prices from the past few days
@@ -65,7 +65,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         #rename columns 
         forecast_copy = forecast_copy.rename(columns={'ds': 'Date', 'yhat': 'Forecasted Prices', 'yhat_lower': 'Lower Bound', 'yhat_upper': 'Upper Bound'})
         predicted_close = round(forecast_copy.iloc[-1]['Forecasted Prices'], 2)
-        st.subheader(f"Price after {n_days} days: {predicted_close}")
+        st.write(f"Price after {n_days} days: ${predicted_close}")
         
            
            
