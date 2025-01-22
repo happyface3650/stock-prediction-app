@@ -37,10 +37,10 @@ if len(selected_stock) != 0: #checks if characters are entered
     current_price_container = st.container()
     data_load_state = st.text("Load data...")
     data = load_data(selected_stock)
+    data_load_state.text("Loading data ...done!")
     if data is None:
         st.write("Please enter a valid stock ticker.")
     else:
-        data_load_state.text("Loading data ...done!")
         ticker = yf.Ticker(selected_stock) #gets current price of the stock from yfinance
         ticker_info = ticker.info
         current_price = ticker_info['currentPrice']
