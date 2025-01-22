@@ -50,7 +50,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         else: # if the market is closed
             value = data.iloc[-1]['Close']
             rounded_value = round(value, 2)
-            st.write(f"Last closing price: ${rounded_value}")
+            st.subheader(f"Last closing price: ${rounded_value}")
         
         plot_raw_data(data)
         st.subheader('Raw data')
