@@ -44,7 +44,7 @@ if len(selected_stock) != 0: #checks if characters are entered
         ticker = yf.Ticker(selected_stock) #gets current price of the stock from yfinance
         ticker_info = ticker.info
         
-         if 'currentPrice' in ticker_info:#checks if the market is open
+        if 'currentPrice' in ticker_info:#checks if the market is open
             current_price = ticker_info['currentPrice']
             st.subheader(f"Current Price: ${round(current_price,2)}")
         else: # if the market is closed
