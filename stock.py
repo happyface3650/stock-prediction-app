@@ -81,5 +81,5 @@ if selected_stock: #checks if characters are entered
                         st.subheader('Forecast components')
                         fig2 = m.plot_components(forecast) #shows trend lines for different time of the day, week and year
                         st.write(fig2)
-                else: #error message if the stock ticker is wrong 
+                    else: #error message if the stock ticker is wrong 
                         st.error("Invalid Stock Ticker/Not enough data to make a forecast. Please try again.") 
