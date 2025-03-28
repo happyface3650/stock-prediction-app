@@ -8,6 +8,20 @@ from plotly import graph_objs as go
 import numpy as np
 from prophet.forecaster import Prophet
 
+def load_data(ticker):
+    data = yf.download(ticker, START, TODAY, auto_adjust=False)
+    data.reset_index(inplace=True)
+    data.columns = ['_'.join(col).strip() if isinstance(col, tuple) else col for col in data.columns]
+    return data
+
+def plot_raw_data(data, open_column, close_column): #plots the data 
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=data['Date_'], y=data[open_column], name='stock_open'))
+    fig.add_trace(go.Scatter(x=data['Date_'], y=data[close_column], name='stock_close'))
+    fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True) #slider to adjust the range of x axis
+    st.plotly_chart(fig)
+
+
 Prophet._float_type = np.float64
 
 st.title("Stock Prediction App")
