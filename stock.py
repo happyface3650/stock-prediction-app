@@ -24,6 +24,8 @@ def plot_raw_data(data, open_column, close_column): #plots the data
 
 Prophet._float_type = np.float64
 
+START = "2016-01-01"
+TODAY = date.today().strftime("%Y-%m-%d")
 st.title("Stock Prediction App")
         #search stocks by their tickers
 selected_stock = st.text_input("Enter Stock ticker")
